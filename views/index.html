@@ -1,0 +1,27 @@
+
+
+
+<div class="chat_room">
+    <h1 class="title">webSocket即时通讯</h1>
+    <ul id="message_list" class="message_list"></ul>
+    <div class="msg_bar">
+        <input type="text" id="message" autofocus class="message_box">
+        <a href="javascript:void(0)" class="sendBtn" id="sendMsg">发送</a>
+    </div>
+</div>
+
+
+<script src="https://cdn.bootcss.com/socket.io/1.7.3/socket.io.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var socket = io();
+    $("#sendMsg").click(function () {
+        var message = $("#message").val();
+        socket.emit('message',message);
+        $("#message").val('');
+    });
+    socket.on('message',function (message) {
+        console.log(message);
+        $("#message_list").append($("<li />").html(message));
+    });
+</script>
